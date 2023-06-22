@@ -132,13 +132,52 @@ func UpdateUser(c *gin.Context) {
 	// End CheckUserWithIDIsExist
 
 	// UpdateUser
-	for i, typeArraySatu := range dataUsers {
-		if typeArraySatu.ID == userId {
+	for i, typeDataUsers := range dataUsers {
+		if typeDataUsers.ID == userId {
 			dataUsers[i].Name = "Jon Heri"
 			break
 		}
 	}
 	// End UpdateUser
+
+	c.JSON(200, gin.H{
+		"response": "success",
+		"message":  "Update User Success",
+		"id":       userId,
+		"data":     dataUsers,
+	})
+}
+
+// End UpdateUser
+
+// DeleteUser
+func DeleteUser(c *gin.Context) {
+	userId := c.Param("id")
+
+	// CheckUserWithIDIsExist
+	var dataUserById typeDataUsers
+	for _, typeDataUsers := range dataUsers {
+		if typeDataUsers.ID == userId {
+			dataUserById = typeDataUsers
+			break
+		}
+	}
+	if dataUserById.ID != userId {
+		c.JSON(400, gin.H{
+			"response": "fail",
+			"message":  "Users with ID: " + userId + " Not Found",
+		})
+		return
+	}
+	// End CheckUserWithIDIsExist
+
+	// Mencari objek dengan ID yang sesuai dan menghapusnya
+	for i, typeDataUsers := range dataUsers {
+		if typeDataUsers.ID == userId {
+			dataUsers = append(dataUsers[:i], dataUsers[i+1:]...)
+			break
+		}
+	}
 
 	c.JSON(200, gin.H{
 		"response": "success",
@@ -148,4 +187,4 @@ func UpdateUser(c *gin.Context) {
 	})
 }
 
-// End UpdateUser
+// End DeleteUser

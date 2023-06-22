@@ -97,6 +97,7 @@ func main() {
 	router.GET("/user/:id", controllers.GetUserById)
 	router.POST("/adduser", controllers.AddUser)
 	router.PATCH("/updateuser/:id", controllers.UpdateUser)
+	router.DELETE("/deleteuser/:id", controllers.DeleteUser)
 	// End User Router
 
 	router.Run(":3002")
