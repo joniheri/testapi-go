@@ -100,5 +100,13 @@ func main() {
 	router.DELETE("/deleteuser/:id", controllers.DeleteUser)
 	// End User Router
 
+	// ProductRouter
+	router.GET("/products", controllers.GetProducts)
+	router.GET("/product/:id", controllers.GetProductById)
+	router.POST("/add-product", controllers.AddProduct)
+	router.PATCH("/update-product/:id", controllers.UpdateProduct)
+	router.DELETE("/delete-product/:id", controllers.DeleteProduct)
+	// End ProductRouter
+
 	router.Run(":3002")
 }
